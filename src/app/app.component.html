@@ -1,0 +1,123 @@
+<div class="card">
+  <h5 class="card-header card-header-color">User Registration</h5>
+  <div class="card-body">
+    <form [formGroup]="RegisterForm" (ngSubmit)="Submit()">
+      <div class="row mb-3">
+        <div class="form-group col">
+          <label>Title </label>
+          <select class="form-control" formControlName="title" [ngClass]="{'is-invalid':submitted && ctrl['title'].errors}">
+            <option value="MR">Mr</option>
+            <option value="Mrs">Mrs</option>
+            <option value="Miss">Miss</option>
+            <option value="Ms">Ms</option>
+          </select>
+          <div *ngIf="submitted &&ctrl['title'].errors" class="invalid-feedback">
+            <div *ngIf="ctrl['title'].errors['required']"> Title is required</div>
+          </div>
+        </div>
+        <div class="form-group col-5">
+          <label>First Name </label>
+          <input type="text" formControlName="firstName" class="form-control" [ngClass]="{'is-invalid':submitted && ctrl['firstName'].errors}"/>
+          <div *ngIf="submitted &&ctrl['firstName'].errors" class="invalid-feedback">
+            <div *ngIf="ctrl['firstName'].errors['required']"> First Name  is required</div>
+            <div *ngIf="ctrl['firstName'].errors['minlength']"> First Name  should be more than 3 char</div>
+            <div *ngIf="ctrl['firstName'].errors['maxlength']"> First Name  should be less than 10</div>
+          </div>
+        </div>
+        <div class="form-group col-5">
+          <label>Last Name </label>
+          <input type="text" formControlName="lastName" class="form-control" [ngClass]="{'is-invalid':submitted && ctrl['lastName'].errors}" />
+          <div *ngIf="submitted &&ctrl['firstName'].errors" class="invalid-feedback">
+            <div *ngIf="ctrl['lastName'].errors['required']"> Last Name  is required</div>
+            <div *ngIf="ctrl['lastName'].errors['minlength']"> Last Name  should be more than 3 char</div>
+            <div *ngIf="ctrl['lastName'].errors['maxlength']"> Last Name  should be less than 10</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="form-group col-5">
+          <label>DOB </label>
+          <input type="text"  class="form-control" placeholder="dd/mm/yyyy" formControlName="dob"  [ngClass]="{'is-invalid':submitted && ctrl['dob'].errors}"/>
+          <div *ngIf="submitted &&ctrl['dob'].errors" class="invalid-feedback">
+            <div *ngIf="ctrl['dob'].errors['required']"> Date Of Birth  is required</div>
+          </div>
+        </div>
+        <div class="form-group col-5">
+          <label>Email </label>
+          <input type="email" class="form-control" formControlName="email"[ngClass]="{'is-invalid':submitted && ctrl['email'].errors}" />
+          <div *ngIf="submitted &&ctrl['email'].errors" class="invalid-feedback">
+            <div *ngIf="ctrl['email'].errors['required']"> Email  is required</div>
+            <div *ngIf="ctrl['email'].errors['email']"> Email  should be in correct format</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="form-group col-5">
+          <label>Password </label>
+          <input type="password" class="form-control" formControlName="password" [ngClass]="{'is-invalid':submitted && ctrl['password'].errors}" />
+            <div *ngIf="submitted &&ctrl['password'].errors" class="invalid-feedback">
+              <div *ngIf="ctrl['password'].errors['required']"> Password   is required</div>
+              <div *ngIf="ctrl['password'].errors['minlength']"> password should be more than 3 char</div>
+              <div *ngIf="ctrl['password'].errors['maxlength']"> password should be less than 6 </div>
+            </div>
+        </div>
+        <div class="form-group col-5">
+          <label>Confirm Password </label>
+          <input  type="password" class="form-control" formControlName="confirmPassword"[ngClass]="{'is-invalid':submitted && ctrl['password'].errors}" />
+          <div *ngIf="submitted &&ctrl['confirmPassword'].errors" class="invalid-feedback">
+            <div *ngIf="ctrl['confirmPassword'].errors['required']">  Confirm Password is required</div>
+            <div *ngIf="ctrl['confirmPassword'].errors['mustMatch']"> password and Confirm password should be same </div>
+            </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="form-group form-check">
+          <input type="checkbox"class="form-check-input" id="acceptterm" formControlName="acceptTerm" [ngClass]="{'is-invalid':submitted && ctrl['acceptTerm'].errors}" />
+          <label for="acceptterm" class="form-check-label"  >Term & Condition </label>
+          <div *ngIf="submitted &&ctrl['acceptTerm'].errors" class="invalid-feedback">
+            <div *ngIf="ctrl['acceptTerm'].errors['required']"> Term AND condition  is required</div>
+          </div>
+
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-success me-3" data-bs-toggle="tooltip" data-placement="bottom" title="Submit">{{ButtonText}}</button>
+          <button type="button" class="btn btn-danger" (click)="cancel()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="card">
+  <h5 class="card-header card-header-list-color">User List</h5>
+  <div class="card-body">
+    <div class="form-row">
+      <div class="form-group col">
+        <table class="table table-hover">
+          <tr>
+            <th>Title</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Date of Birth</th>
+            <th>Email Id</th>
+            <th>Action</th>
+          </tr>
+          <tr *ngFor="let data of users">
+            <td>{{data.title}}</td>
+         <td >{{data.firstName}}</td>
+         <td>{{data.lastName}}</td>
+         <td>{{data.dob}}</td>
+         <td>{{data.email}}</td>
+         <td>
+            <i class="fa fa-edit " style="color: green;" (click)="edit(data.id)"></i>
+            <i class="fa fa-trash-o" style="color: red;" (click)="delete(data.id)"></i>
+         </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
